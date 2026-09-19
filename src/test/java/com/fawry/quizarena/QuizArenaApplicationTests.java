@@ -1,4 +1,4 @@
-package com.fawry.springboottest;
+package com.fawry.quizarena;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
