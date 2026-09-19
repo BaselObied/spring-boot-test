@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Leaderboard')}"></head>
+<body>
+<div class="shell">
+    <a th:replace="~{fragments :: brand}"></a>
+
+    <h1>Leaderboard</h1>
+    <p class="lead">Top 10 players by total score, served from the leaderboard cache.</p>
+
+    <div class="card">
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry, iter : ${entries}">
+                <td class="rank" th:text="${iter.count}"></td>
+                <td th:text="${entry.username}"></td>
+                <td th:text="${entry.totalScore}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(entries)}">
+                <td colspan="3" style="color:var(--ink-dim);">No scores yet — play a match first.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn secondary" th:href="@{/}">Back</a>
+</div>
+</body>
+</html>

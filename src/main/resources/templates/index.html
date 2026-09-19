@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Play')}"></head>
+<body>
+<div class="shell">
+    <a th:replace="~{fragments :: brand}"></a>
+
+    <div th:if="${error}" class="alert" th:text="${error}"></div>
+    <div th:if="${message}" class="alert" style="background:rgba(109,179,63,0.1); border-color:var(--leaf); color:var(--leaf);" th:text="${message}"></div>
+
+    <h1>Start a match</h1>
+    <p class="lead">Register a player, then pick a category and answer five questions to build up a score.</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">New player</h3>
+        <form th:action="@{/ui/players}" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="e.g. ada" required/>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Start match</h3>
+        <form th:action="@{/ui/matches}" method="post">
+            <label for="playerId">Player ID</label>
+            <input type="text" id="playerId" name="playerId" placeholder="e.g. 1" required/>
+
+            <label for="category">Category</label>
+            <select id="category" name="category">
+                <option value="general">General Knowledge</option>
+                <option value="science">Science</option>
+                <option value="history">History</option>
+                <option value="sports">Sports</option>
+            </select>
+
+            <button type="submit">Start match</button>
+        </form>
+    </div>
+
+    <a class="btn secondary" th:href="@{/ui/leaderboard}">View leaderboard</a>
+</div>
+</body>
+</html>

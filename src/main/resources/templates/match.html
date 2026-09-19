@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Match')}"></head>
+<body>
+<div class="shell">
+    <a th:replace="~{fragments :: brand}"></a>
+
+    <div th:if="${lastAnswerCorrect} != null" th:class="${lastAnswerCorrect} ? 'badge correct' : 'badge wrong'"
+         th:text="${lastAnswerCorrect} ? 'Correct!' : 'Not quite.'"></div>
+
+    <div class="scoreline">
+        Match <span th:text="${match.id}"></span> ·
+        Score: <b th:text="${match.score}"></b>
+    </div>
+
+    <div th:if="${match.finished}" class="card">
+        <h1>Match finished</h1>
+        <p class="lead">Final score: <b th:text="${match.score}"></b> points.</p>
+        <a class="btn" th:href="@{/}">Play again</a>
+        <a class="btn secondary" th:href="@{/ui/leaderboard}">Leaderboard</a>
+    </div>
+
+    <div th:unless="${match.finished}" class="card">
+        <h1 th:text="${question.text}">Question text</h1>
+
+        <form class="option-form" th:action="@{/ui/matches/{id}/answers(id=${match.id})}" method="post">
+            <button th:each="option : ${question.options}"
+                    class="option-btn"
+                    type="submit"
+                    name="answer"
+                    th:value="${option}"
+                    th:text="${option}">
+                Option
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
